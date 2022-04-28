@@ -12,6 +12,7 @@ services:
       php artisan vendor:publish --tag=laravel-assets --ansi --force &&
       php -r \"file_exists('.env') || copy('.env.example', '.env');\" &&
       php artisan key:generate --ansi &&
+      chown -R www-data:www-data /var/www/html &&
       chmod -R 775 /var/www/html/storage &&
       service apache2 restart &&
       tail -f /var/www/html/storage/logs/laravel.log
