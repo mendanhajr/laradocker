@@ -7,14 +7,14 @@ php -r "if (hash_file('sha384', 'composer-setup.php') === '906a84df04cea2aa72f40
 php composer-setup.php --install-dir=/usr/local/bin --filename=composer && \
 php -r "unlink('composer-setup.php');"
 COPY ./000-default.conf /etc/apache2/sites-available/000-default.conf
-COPY . .
-RUN composer install && \
-php artisan package:discover --ansi && \
-php artisan vendor:publish --tag=laravel-assets --ansi --force && \
-php -r "file_exists('.env') || copy('.env.example', '.env');" && \
-php artisan key:generate --ansi
+#COPY . .
+#RUN composer install && \
+#php artisan package:discover --ansi && \
+#php artisan vendor:publish --tag=laravel-assets --ansi --force && \
+#php -r "file_exists('.env') || copy('.env.example', '.env');" && \
+#php artisan key:generate --ansi
 RUN chown -R www-data:www-data /var/www/html
-RUN chmod -R 775 /var/www/html
+RUN chmod -R 775 /var/www/html/storage
 EXPOSE 80
 RUN a2enmod rewrite
 RUN service apache2 restart
