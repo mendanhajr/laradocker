@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   php:
+    container_name: laravel
     build: .
     ports:
      - "8001:80"
