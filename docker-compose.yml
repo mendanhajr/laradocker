@@ -1,0 +1,17 @@
+version: '3.9'
+services:
+  php:
+    build: .
+    ports:
+     - "8001:80"
+    volumes:
+     - .:/var/www/html
+    command: bash -c "
+      composer install &&
+      php artisan vendor:publish --tag=laravel-assets --ansi --force &&
+      php -r \"file_exists('.env') || copy('.env.example', '.env');\" &&
+      php artisan key:generate --ansi &&
+      chmod -R 775 /var/www/html/storage &&
+      service apache2 restart &&
+      tail -f /var/log/apache2/access.log
+      "
