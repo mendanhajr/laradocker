@@ -14,5 +14,5 @@ services:
       php artisan key:generate --ansi &&
       chmod -R 775 /var/www/html/storage &&
       service apache2 restart &&
-      tail -f /var/log/apache2/access.log
+      tail -f /var/www/html/storage/logs/laravel.log
       "
